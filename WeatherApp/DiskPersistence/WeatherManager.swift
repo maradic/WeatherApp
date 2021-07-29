@@ -17,11 +17,16 @@ final class WeatherManager {
     }
     
     func addNewSelectedCity(cityGeocoding: GeocodingResponse) {
-        let city = WeatherCity(lat: cityGeocoding.lat, long: cityGeocoding.lon)
+        let city = WeatherCity(lat: cityGeocoding.lat, long: cityGeocoding.lon, name: cityGeocoding.name)
         if !weatherData.cities.contains(where: {$0 == city}) {
             weatherData.cities.append(city)
             DiskPersistence.saveData(weatherData: weatherData)
         }
+    }
+    
+    func deleteCity(city: WeatherCity) {
+        weatherData.cities.removeAll(where: {$0 == city})
+        DiskPersistence.saveData(weatherData: weatherData)
     }
 }
 
@@ -42,7 +47,7 @@ struct DiskPersistence {
         var weatherData: WeatherData?
         do {
             guard let data = UserDefaults.standard.object(forKey: weatherDataKey) as? Data else {return nil}
-            weatherData = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as! WeatherData
+            weatherData = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? WeatherData
         } catch let error {
             debugPrint(error.localizedDescription)
         }

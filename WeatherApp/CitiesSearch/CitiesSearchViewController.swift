@@ -27,12 +27,13 @@ class CitiesSearchViewController: UIViewController, UIGestureRecognizerDelegate 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.removeSeparators()
+    
         tableView.tableHeaderView = searchController.searchBar
         searchController.searchBar.delegate = self
         view.clipsToBounds = true
         tableView.clipsToBounds = true
         navigationController?.interactivePopGestureRecognizer?.delegate = self
-        
+
         presenter.delegate = self
         setupStyle()
     }

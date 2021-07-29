@@ -13,15 +13,18 @@ class WeatherCity: NSObject, NSCoding {
     var currentTemperature: Double?
     var currentHumidity: Double?
     var weatherDescription: String?
+    var cityName: String
     
-    init(lat: Double, long: Double) {
+    init(lat: Double, long: Double, name: String) {
         self.lat = lat
         self.long = long
+        self.cityName = name
     }
     
     func encode(with coder: NSCoder) {        
         coder.encode(lat, forKey: "lat")
         coder.encode(long, forKey: "long")
+        coder.encode(cityName, forKey: "cityName")
         if let currentHumidity = currentHumidity {
             coder.encode(currentHumidity, forKey: "currentHumidity")
         }
@@ -39,6 +42,7 @@ class WeatherCity: NSObject, NSCoding {
         currentHumidity = coder.decodeDouble(forKey: "currentHumidity")
         weatherDescription = coder.decodeObject(forKey: "weatherDescription") as? String
         currentTemperature = coder.decodeDouble(forKey: "currentTemperature")
+        cityName = coder.decodeObject(forKey: "cityName") as! String
     }
     
     static func == (lhs: WeatherCity, rhs: WeatherCity) -> Bool{

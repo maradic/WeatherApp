@@ -18,7 +18,7 @@ struct Constants {
         static let short = 0.2
     }
     
-    static let searchDebounceTime = 1.0
+    static let searchDebounceTime = 0.6
     static let defaultPlaceholder = "placeholder"
 }
 
