@@ -14,7 +14,7 @@ class CitiesPresenter {
         }
     }
     
-    func deleteCity(city: WeatherCity) {
-        WeatherManager.shared.deleteCity(city: city)
+    func deleteCity(cityAtIndex: Int) {
+        WeatherManager.shared.deleteCity(city: cities[cityAtIndex])
     }
 }
