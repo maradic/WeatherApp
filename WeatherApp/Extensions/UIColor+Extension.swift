@@ -18,6 +18,14 @@ extension UIColor {
     }
     
     static var defaultColor: UIColor {
-        return UIColor(red: 83, green: 84, blue: 117, alpha: 1)
+        return .orange
+    }
+    
+    static var defaultButtonTitleColor: UIColor {
+        return .white
+    }
+    
+    static var finishButtonColor: UIColor {
+        return .green
     }
 }

@@ -27,7 +27,7 @@ private enum IncludeQueryParam {
     case alerts
     
 //    var exludeString: String {
-//        return 
+//        return
 //    }
 }
 
@@ -68,6 +68,7 @@ enum APIRouter: APIConfiguration {
         switch self {
         case .geocoding(let cityName):
             parameters["q"] = cityName
+            parameters["limit"] = "5"
             
         case .onecall(let lat, let long):
             parameters["lat"] = lat
@@ -91,7 +92,7 @@ enum APIRouter: APIConfiguration {
         
         if let param = parameters {
             var queryItems = param.map({ key, value in
-            return URLQueryItem(name: key, value: value as! String)
+                return URLQueryItem(name: key, value: value as? String)
             })
             do {
                 queryItems.append(URLQueryItem(name: "appid", value: try Configuration.value(for: "API_KEY")))

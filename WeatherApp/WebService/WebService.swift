@@ -9,6 +9,7 @@ import Foundation
 import Alamofire
 
 class APIClient {
+    
     static let shared: APIClient = APIClient()
     private let decoder = JSONDecoder()
     private let session: Session = Session.default
@@ -27,13 +28,11 @@ class APIClient {
             case .failure: //.failure(let error)
                 completion(.failure(.unknown)) //make error handler later
             }
-        
         }
     }
     
     @discardableResult
     func makeRequest(router: APIRouter, completion: @escaping (Result<Any, ServiceError>) -> Void ) -> DataRequest {
-                
         return session.request(router).validate().responseJSON { (response) in
             switch response.result {
             case .success(let responseJson):

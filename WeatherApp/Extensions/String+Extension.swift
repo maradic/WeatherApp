@@ -15,4 +15,8 @@ extension String {
     var asUrl: URL? {
         return URL(string: self)
     }
+    
+    var trimmed: String {
+        return trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+    }
 }

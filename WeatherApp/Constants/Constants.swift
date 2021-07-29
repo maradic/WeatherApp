@@ -14,6 +14,11 @@ struct Constants {
         static let weatherApiBaseStringURL = "https://api.openweathermap.org"
     }
     
+    struct Animation {
+        static let short = 0.2
+    }
+    
+    static let searchDebounceTime = 1.0
     static let defaultPlaceholder = "placeholder"
 }
 
