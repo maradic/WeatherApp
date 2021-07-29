@@ -10,8 +10,8 @@ import Foundation
 class WeatherCity: NSObject, NSCoding {
     let lat: Double
     let long: Double
-    var currentTemperature: Double?
-    var currentHumidity: Double?
+    var currentTemperature: Double = Constants.undefinedWeatherDouble
+    var currentHumidity: Double = Constants.undefinedWeatherDouble
     var weatherDescription: String?
     var cityName: String
     
@@ -25,15 +25,9 @@ class WeatherCity: NSObject, NSCoding {
         coder.encode(lat, forKey: "lat")
         coder.encode(long, forKey: "long")
         coder.encode(cityName, forKey: "cityName")
-        if let currentHumidity = currentHumidity {
-            coder.encode(currentHumidity, forKey: "currentHumidity")
-        }
-        if let weatherDescription = weatherDescription {
-            coder.encode(weatherDescription, forKey: "weatherDescription")
-        }
-        if let currentTemperature = currentTemperature {
-            coder.encode(currentTemperature, forKey: "currentTemperature")
-        }
+        coder.encode(currentHumidity, forKey: "currentHumidity")
+        coder.encode(weatherDescription, forKey: "weatherDescription")
+        coder.encode(currentTemperature, forKey: "currentTemperature")
     }
     
     required init?(coder: NSCoder) {

@@ -20,6 +20,7 @@ struct Constants {
     
     static let searchDebounceTime = 0.6
     static let defaultPlaceholder = "placeholder"
+    static let undefinedWeatherDouble = -200.0
 }
 
 enum Secrets {
