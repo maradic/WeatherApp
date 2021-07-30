@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class CitiesListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     let presenter = CitiesPresenter()
@@ -31,7 +31,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UITableViewDataSource {
+extension CitiesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let count = presenter.cities.count
         tableView.addEmptyStateMessageIfNeeded(message: "empty_cities_placeholder".localized, count: count)
@@ -45,7 +45,7 @@ extension ViewController: UITableViewDataSource {
     }
 }
 
-extension ViewController: UITableViewDelegate {
+extension CitiesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         true
     }
@@ -60,7 +60,7 @@ extension ViewController: UITableViewDelegate {
     }
 }
 
-extension ViewController: CityPresenterDelegate {
+extension CitiesListViewController: CityPresenterDelegate {
     func refreshingStateChanged(isRefreshing: Bool) {
         if isRefreshing {
             tableView.refreshControl?.beginRefreshing()
