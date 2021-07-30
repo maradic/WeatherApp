@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
+    
     let presenter = CitiesPresenter()
     
     override func viewDidLoad() {
