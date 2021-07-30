@@ -9,6 +9,8 @@ import Foundation
 
 class CurrentWeatherResponse: NSObject, NSCoding, Codable {
     var main: MainWeatherData
+    var weather = [WeatherResponse]()
+    
     var temperature: Double {
         return main.temp
     }
@@ -51,4 +53,9 @@ class MainWeatherData: NSObject, NSCoding, Codable {
         pressure = coder.decodeInteger(forKey: "pressure")
         temp =  coder.decodeDouble(forKey: "temp")
     }
+}
+
+struct WeatherResponse: Codable {
+    var description: String
+    //add rest
 }

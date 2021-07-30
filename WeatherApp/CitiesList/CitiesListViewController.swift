@@ -58,6 +58,12 @@ extension CitiesListViewController: UITableViewDelegate {
             tableView.endUpdates()
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailVC = UIStoryboard.weatherDetailViewController
+        navigationController?.pushViewController(detailVC, animated: true)
+        detailVC.cityData = presenter.cities[indexPath.row]
+    }
 }
 
 extension CitiesListViewController: CityPresenterDelegate {

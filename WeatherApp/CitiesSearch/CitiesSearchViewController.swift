@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CitiesSearchViewController: UIViewController, UIGestureRecognizerDelegate {
+class CitiesSearchViewController: BaseViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var finishButton: ShrinkingButton!
@@ -32,8 +32,6 @@ class CitiesSearchViewController: UIViewController, UIGestureRecognizerDelegate 
         searchController.searchBar.delegate = self
         view.clipsToBounds = true
         tableView.clipsToBounds = true
-        navigationController?.interactivePopGestureRecognizer?.delegate = self
-
         presenter.delegate = self
         setupStyle()
     }

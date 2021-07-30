@@ -12,13 +12,19 @@ class WeatherCity: NSObject, NSCoding {
     let long: Double
     var currentTemperature: Double = Constants.undefinedWeatherDouble
     var currentHumidity: Int = Constants.undefinedWeatherInt
-    var weatherDescription: String?
+    var weatherDescription: String = ""
     var cityName: String
+    
     var weatherData: CurrentWeatherResponse? {
         didSet {
             if let weatherData = weatherData {
                 currentTemperature = weatherData.temperature
                 currentHumidity = weatherData.humudity
+                weatherDescription = ""
+                weatherData.weather.forEach({ weatherResponse in
+                    weatherDescription += weatherResponse.description + " "
+                })
+                weatherDescription = weatherDescription.trimmed
             }
         }
     }
@@ -53,7 +59,7 @@ class WeatherCity: NSObject, NSCoding {
         lat = coder.decodeDouble(forKey: "lat")
         long = coder.decodeDouble(forKey: "long")
         currentHumidity = coder.decodeInteger(forKey: "currentHumidity")
-        weatherDescription = coder.decodeObject(forKey: "weatherDescription") as? String
+        weatherDescription = coder.decodeObject(forKey: "weatherDescription") as? String ?? ""
         currentTemperature = coder.decodeDouble(forKey: "currentTemperature")
         cityName = coder.decodeObject(forKey: "cityName") as! String
         weatherData = coder.decodeObject(forKey: "weatherData") as? CurrentWeatherResponse
