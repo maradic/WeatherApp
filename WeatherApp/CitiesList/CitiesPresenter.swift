@@ -9,6 +9,7 @@ import Foundation
 
 protocol CityPresenterDelegate: AnyObject {
     func refreshingStateChanged(isRefreshing: Bool)
+    func dataChanged()
 }
 
 class CitiesPresenter {
@@ -26,5 +27,12 @@ class CitiesPresenter {
     
     func refreshData() {
         
+        WeatherDataFetcher.fetchAllWeatherData(weatherData: &WeatherManager.shared.weatherData) { [weak self] success in
+            if (success) {
+                self?.delegate?.dataChanged()
+                WeatherManager.shared.save()
+            }
+            self?.delegate?.refreshingStateChanged(isRefreshing: false)
+        }
     }
 }

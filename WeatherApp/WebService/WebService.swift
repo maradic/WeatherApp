@@ -8,19 +8,19 @@
 import Foundation
 import Alamofire
 
-class APIClient {
+internal class APIClient {
     
     static let shared: APIClient = APIClient()
     private let decoder = JSONDecoder()
     private let session: Session = Session.default
     
     @discardableResult
-    func makeRequest<T: Codable>(router: APIRouter, completion: @escaping (Result<[T], ServiceError>) -> Void) -> DataRequest {
+    func makeRequest<T: Codable>(router: APIRouter, completion: @escaping (Result<T, ServiceError>) -> Void) -> DataRequest {
         return session.request(router).validate().responseData { (responseData) in
             debugPrint(responseData)
             switch responseData.result {
             case .success(let data):
-                if let responseObject = try? self.decoder.decode([T].self, from: data) {
+                if let responseObject = try? self.decoder.decode(T.self, from: data) {
                     completion(.success(responseObject))
                 } else {
                     completion(.failure(.parseError))

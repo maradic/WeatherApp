@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ServiceError : Error {
+internal enum ServiceError : Error {
     case unknown //= 0
     case parseError
     case noNetwork //= 1000

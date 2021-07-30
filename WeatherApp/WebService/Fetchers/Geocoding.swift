@@ -6,12 +6,11 @@
 //
 
 import Foundation
-import Alamofire
 
 final class Geocoding {
     class func geocode(name: String,
                        completion: @escaping ([GeocodingResponse]) -> ()) {
-            APIClient.shared.makeRequest(router: .geocoding(cityName: name)) { (result: Result<[GeocodingResponse], ServiceError>) in
+        APIClient.shared.makeRequest(router: .geocoding(cityName: name)) { (result: Result<[GeocodingResponse], ServiceError>) in
             switch result {
             case .success(let geocodingResponse):
                 completion(geocodingResponse)

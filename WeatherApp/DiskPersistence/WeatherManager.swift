@@ -20,12 +20,16 @@ final class WeatherManager {
         let city = WeatherCity(lat: cityGeocoding.lat, long: cityGeocoding.lon, name: cityGeocoding.name)
         if !weatherData.cities.contains(where: {$0 == city}) {
             weatherData.cities.append(city)
-            DiskPersistence.saveData(weatherData: weatherData)
+            save()
         }
     }
     
     func deleteCity(city: WeatherCity) {
         weatherData.cities.removeAll(where: {$0 == city})
+        save()
+    }
+    
+    func save() {
         DiskPersistence.saveData(weatherData: weatherData)
     }
 }
@@ -34,7 +38,7 @@ struct DiskPersistence {
     static let weatherDataKey = "weatherData"
     
     static func saveData(weatherData: WeatherData)  {
-        do {           
+        do {
             let data = try NSKeyedArchiver.archivedData(withRootObject: weatherData, requiringSecureCoding: false)
             UserDefaults.standard.setValue(data, forKey: weatherDataKey)
             UserDefaults.standard.synchronize()

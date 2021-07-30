@@ -11,12 +11,20 @@ class WeatherCity: NSObject, NSCoding {
     let lat: Double
     let long: Double
     var currentTemperature: Double = Constants.undefinedWeatherDouble
-    var currentHumidity: Double = Constants.undefinedWeatherDouble
+    var currentHumidity: Int = Constants.undefinedWeatherInt
     var weatherDescription: String?
     var cityName: String
+    var weatherData: CurrentWeatherResponse? {
+        didSet {
+            if let weatherData = weatherData {
+                currentTemperature = weatherData.temperature
+                currentHumidity = weatherData.humudity
+            }
+        }
+    }
     
     var temperatureFrendly: String {
-        if currentTemperature != Constants.undefinedWeatherDouble{
+        if currentTemperature != Constants.undefinedWeatherDouble {
             return String(Int(currentTemperature)) + " " + String.celsiusSign
         } else {
             return "-- " + String.celsiusSign
@@ -36,15 +44,19 @@ class WeatherCity: NSObject, NSCoding {
         coder.encode(currentHumidity, forKey: "currentHumidity")
         coder.encode(weatherDescription, forKey: "weatherDescription")
         coder.encode(currentTemperature, forKey: "currentTemperature")
+        if let weatherData = weatherData {
+            coder.encode(weatherData, forKey: "weatherData")
+        }
     }
     
     required init?(coder: NSCoder) {
         lat = coder.decodeDouble(forKey: "lat")
         long = coder.decodeDouble(forKey: "long")
-        currentHumidity = coder.decodeDouble(forKey: "currentHumidity")
+        currentHumidity = coder.decodeInteger(forKey: "currentHumidity")
         weatherDescription = coder.decodeObject(forKey: "weatherDescription") as? String
         currentTemperature = coder.decodeDouble(forKey: "currentTemperature")
         cityName = coder.decodeObject(forKey: "cityName") as! String
+        weatherData = coder.decodeObject(forKey: "weatherData") as? CurrentWeatherResponse
     }
     
     static func == (lhs: WeatherCity, rhs: WeatherCity) -> Bool{
@@ -66,8 +78,4 @@ class WeatherCity: NSObject, NSCoding {
         }
     }
     
-//    override func hash(into hasher: inout Hasher) {
-//        return hasher.combine(lat + long)
-//    }
-
 }

@@ -16,17 +16,18 @@ class ViewController: UIViewController {
         presenter.delegate = self
         tableView.removeSeparators()
         tableView.addRefreshWith(target: self, selector: #selector(fetchNewData))
+        tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+        presenter.refreshData()
     }
     
     @objc func fetchNewData() {
         presenter.refreshData()
     }
-
 }
 
 extension ViewController: UITableViewDataSource {
@@ -65,5 +66,9 @@ extension ViewController: CityPresenterDelegate {
         } else {
             tableView.refreshControl?.endRefreshing()
         }
+    }
+    
+    func dataChanged() {
+        tableView.reloadData()
     }
 }

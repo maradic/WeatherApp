@@ -25,23 +25,20 @@ private enum IncludeQueryParam {
     case hourly
     case daily
     case alerts
-    
-//    var exludeString: String {
-//        return
-//    }
 }
 
 private struct Routes {
     static let onecallRoute = "/onecall/" + RouteVersion.data
-    static let currentRoute = "/weather/" + RouteVersion.data
+    static let currentRoute = "/data/" + RouteVersion.data + "/weather" 
     static let daily16Route = "/daily/" + RouteVersion.data
     static let geocodingRoute = "/geo/" + RouteVersion.geo + "/direct"
 }
 
 enum APIRouter: APIConfiguration {
     case daily16hourd
-    case onecall(lat: String, long: String)
+    case current(lat: Double, long: Double)
     case geocoding(cityName: String)
+    
     
     internal var method: HTTPMethod {
         switch self {
@@ -54,8 +51,8 @@ enum APIRouter: APIConfiguration {
         switch self {
         case .geocoding:
             return Routes.geocodingRoute
-        case .onecall:
-            return Routes.onecallRoute
+        case .current:
+            return Routes.currentRoute
         case .daily16hourd:
             return Routes.daily16Route
         }
@@ -70,9 +67,10 @@ enum APIRouter: APIConfiguration {
             parameters["q"] = cityName
             parameters["limit"] = "5"
             
-        case .onecall(let lat, let long):
-            parameters["lat"] = lat
-            parameters["long"] = long
+        case .current(let lat, let long):
+            parameters["lat"] = String(lat)
+            parameters["lon"] = String(long)
+            parameters["units"] = "metric"
         case .daily16hourd: break
             
         }
