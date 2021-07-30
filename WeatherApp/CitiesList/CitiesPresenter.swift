@@ -7,6 +7,10 @@
 
 import Foundation
 
+protocol CityPresenterDelegate: AnyObject {
+    func refreshingStateChanged(isRefreshing: Bool)
+}
+
 class CitiesPresenter {
     var cities: [WeatherCity] {
         get {
@@ -14,7 +18,13 @@ class CitiesPresenter {
         }
     }
     
+    weak var delegate: CityPresenterDelegate?
+    
     func deleteCity(cityAtIndex: Int) {
         WeatherManager.shared.deleteCity(city: cities[cityAtIndex])
+    }
+    
+    func refreshData() {
+        
     }
 }

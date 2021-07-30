@@ -19,4 +19,6 @@ extension String {
     var trimmed: String {
         return trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
     }
+    
+    static let celsiusSign = "\u{2103}"
 }

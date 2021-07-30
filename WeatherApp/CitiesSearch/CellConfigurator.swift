@@ -15,10 +15,6 @@ class CellConfigurator {
     
     class func configureCitiesCell(cell: CityTableViewCell, city: WeatherCity) {
         cell.searchCityTitleLabel.text = city.cityName
-        if city.currentTemperature != Constants.undefinedWeatherDouble{
-            cell.temperatureLabel.text = String(Int(city.currentTemperature)) + " " + "\u{2103}"
-        } else {
-            cell.temperatureLabel.text = "-- " + "\u{2103}"
-        }
+        cell.temperatureLabel.text = city.temperatureFrendly       
     }
 }

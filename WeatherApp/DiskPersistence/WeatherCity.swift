@@ -15,6 +15,14 @@ class WeatherCity: NSObject, NSCoding {
     var weatherDescription: String?
     var cityName: String
     
+    var temperatureFrendly: String {
+        if currentTemperature != Constants.undefinedWeatherDouble{
+            return String(Int(currentTemperature)) + " " + String.celsiusSign
+        } else {
+            return "-- " + String.celsiusSign
+        }
+    }
+    
     init(lat: Double, long: Double, name: String) {
         self.lat = lat
         self.long = long

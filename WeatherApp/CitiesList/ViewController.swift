@@ -13,12 +13,18 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter.delegate = self
         tableView.removeSeparators()
+        tableView.addRefreshWith(target: self, selector: #selector(fetchNewData))
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tableView.reloadData()
+    }
+    
+    @objc func fetchNewData() {
+        presenter.refreshData()
     }
 
 }
@@ -52,3 +58,12 @@ extension ViewController: UITableViewDelegate {
     }
 }
 
+extension ViewController: CityPresenterDelegate {
+    func refreshingStateChanged(isRefreshing: Bool) {
+        if isRefreshing {
+            tableView.refreshControl?.beginRefreshing()
+        } else {
+            tableView.refreshControl?.endRefreshing()
+        }
+    }
+}

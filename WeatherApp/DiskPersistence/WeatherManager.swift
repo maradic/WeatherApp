@@ -34,7 +34,7 @@ struct DiskPersistence {
     static let weatherDataKey = "weatherData"
     
     static func saveData(weatherData: WeatherData)  {
-        do {
+        do {           
             let data = try NSKeyedArchiver.archivedData(withRootObject: weatherData, requiringSecureCoding: false)
             UserDefaults.standard.setValue(data, forKey: weatherDataKey)
             UserDefaults.standard.synchronize()

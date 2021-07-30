@@ -26,4 +26,10 @@ extension UITableView {
             backgroundView = nil
         }
     }
+    
+    func addRefreshWith(target: Any, selector: Selector) {
+        let refresh = UIRefreshControl()
+        refresh.addTarget(target, action: selector, for: .valueChanged)        
+        refreshControl = refresh        
+    }
 }

@@ -9,5 +9,5 @@
 
 "first_string" = "Hello world";
 "searchbar_placeholder" = "Search for cities";
-"empty_cities_placeholder" = "Please add city you want to know weather.";
+"empty_cities_placeholder" = "Please add city and track weather.";
 "finish" = "Finish";
